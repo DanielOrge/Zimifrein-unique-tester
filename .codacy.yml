@@ -1,6 +1,6 @@
 
 exclude_paths:
-  - "**/.test.ts"
+  - **/.test.ts
   - package-lock.json
   - package.json
   - newrelic.js
