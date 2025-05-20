@@ -1,1 +1,25 @@
+import axios from 'axios';
+
+describe('POST /calculate-priority', () => {
+  it('should return a valid priority calculation', async () => {
+    const requestBody = {
+      jira_ticket_id: 'TEST-123',
+      zendesk_ticket_count: 5,
+      severity: 'high',
+      customer_arr: 100000
+    };
+
+    const response = await axios.post('http://localhost:8000/calculate-priority', requestBody);
+    const data = response.data;
+
+    expect(response.status).toBe(200);
+    expect(data).toHaveProperty('ticket_id', requestBody.jira_ticket_id);
+    expect(data).toHaveProperty('priority_score');
+    expect(typeof data.priority_score).toBe('number');
+    expect(data).toHaveProperty('priority_level');
+    expect(typeof data.priority_level).toBe('string');
+    expect(data).toHaveProperty('message');
+    expect(typeof data.message).toBe('string');
+  });
+});
 
