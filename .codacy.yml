@@ -1,15 +1,4 @@
 ---
 exclude_paths:
-  - "**.test.ts"
-  - package-lock.json
-  - package.json
-  - newrelic.js
-  - docker-compose.yml
-  - apiary.apib
-  - README.md
-  - Dockerfile
-  - .travis.yml
-  - .gitignore
-  - .eslintrc.json
-  - conf/
-  - config/
+  - "scripts/**/*"
+  - "**/__test__/**/*"
