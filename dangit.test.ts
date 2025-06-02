@@ -15,9 +15,20 @@ import {
 // fixes typing errors in Atom editor
 import {} from 'jasmine';
 
-// Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
-declare var __karma__: any;
-declare var require: any;
+// Instead of declaring as any, provide minimal typings for __karma__ and require
+interface Karma {
+  loaded: () => void;
+  start: () => void;
+}
+declare var __karma__: Karma;
+
+declare function require(module: string): any;
+declare namespace require {
+  function context(directory: string, useSubdirectories: boolean, regExp: RegExp): {
+    keys: () => string[];
+    (id: string): any;
+  };
+}
 
 // Prevent Karma from running prematurely.
 __karma__.loaded = function () {};
@@ -28,8 +39,8 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting()
 );
 // Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
+const contextModule = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
-context.keys().map(context);
+contextModule.keys().map((key) => contextModule(key));
 // Finally, start Karma to run the tests.
 __karma__.start();
