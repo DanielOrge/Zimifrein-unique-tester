@@ -22,12 +22,13 @@ interface Karma {
 }
 declare var __karma__: Karma;
 
-declare function require(module: string): any;
+type RequireContext = {
+  keys: () => string[];
+  (id: string): unknown;
+};
+declare function require(module: string): unknown;
 declare namespace require {
-  function context(directory: string, useSubdirectories: boolean, regExp: RegExp): {
-    keys: () => string[];
-    (id: string): any;
-  };
+  function context(directory: string, useSubdirectories: boolean, regExp: RegExp): RequireContext;
 }
 
 // Prevent Karma from running prematurely.
@@ -39,8 +40,10 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting()
 );
 // Then we find all the tests.
-const contextModule = require.context('./', true, /\.spec\.ts$/);
+const contextModule: RequireContext = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
-contextModule.keys().map((key) => contextModule(key));
+contextModule.keys().forEach((key: string) => {
+  contextModule(key);
+});
 // Finally, start Karma to run the tests.
 __karma__.start();
