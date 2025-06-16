@@ -16,20 +16,32 @@ import {
 import {} from 'jasmine';
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
-declare var __karma__: any;
-declare var require: any;
+declare var __karma__: unknown;
+declare var require: unknown;
 
 // Prevent Karma from running prematurely.
-__karma__.loaded = function () {};
+if (typeof __karma__ === 'object' && __karma__ !== null && typeof (__karma__ as any).loaded === 'function') {
+  (__karma__ as any).loaded = function () {};
+}
 
 // First, initialize the Angular testing environment.
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
-);
+const testBed = getTestBed();
+if (typeof testBed.initTestEnvironment === 'function') {
+  testBed.initTestEnvironment(
+    BrowserDynamicTestingModule,
+    platformBrowserDynamicTesting()
+  );
+}
 // Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().map(context);
+let context: any;
+if (typeof require === 'function' && typeof (require as any).context === 'function') {
+  context = (require as any).context('./', true, /\.spec\.ts$/);
+  // And load the modules.
+  if (Array.isArray(context.keys())) {
+    context.keys().map((key: string) => context(key));
+  }
+}
 // Finally, start Karma to run the tests.
-__karma__.start();
+if (typeof __karma__ === 'object' && __karma__ !== null && typeof (__karma__ as any).start === 'function') {
+  (__karma__ as any).start();
+}
