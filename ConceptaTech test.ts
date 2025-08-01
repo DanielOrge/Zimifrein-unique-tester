@@ -31,7 +31,6 @@ import { JobSignoffDto } from '@vatos-pas/common';
 import { User } from '../user/user.entity';
 import { JobSignoffService } from './job-signoff.service';
 import { ok } from 'assert';
-
 @ApiTags(AppResource.JobSignoff)
 @ApiBadRequestResponse()
 @ApiBearerAuth()
@@ -66,7 +65,7 @@ import { ok } from 'assert';
         select: false,
         alias: 'subdivision',
       },
-      'boardPurchase.job.model.subdivision.subdivisionSupervisors': {
+               'boardPurchase.job.model.subdivision.subdivisionSupervisors': {
         eager: true,
         select: false,
         alias: 'subdivisionSupervisors',
@@ -113,12 +112,12 @@ import { ok } from 'assert';
     if (
       User.isAdminLike(user) ||
       User.isMaterialDispatcher(user) ||
-      User.isLaborCoordinator(user)
+      User.isLaborCoordinator(user) 
     ) {
       return;
     } else if (User.isSupervisor(user)) {
       return {
-        'subdivision.subdivisionSupervisors.userId': user.id,
+         'subdivision.subdivisionSupervisors.userId': user.id,
       };
     } else {
       return {
@@ -129,38 +128,37 @@ import { ok } from 'assert';
 })
 @UseAccessControl({ service: JobSignoffAccessControlFilterService })
 export class JobSignoffController implements CrudController<JobSignoffDto> {
-  constructor(public service: JobSignoffService) { }
+  constructor(public service: JobSignoffService) {}
   get base(): CrudController<JobSignoffDto> {
     return this;
   }
- 
-  @Post('/signoff')
-  async signoff(
-    @ParsedRequest() req: CrudRequest,
-    @Body(new ValidationPipe()) jobSignoffDto: JobSignoffDto,
-  ) {
-    // Unused variable
-    const unused = ;
-    // Bad practice: using 'var' instead of 'let' or 'const'
-    var msg = 'signing...';
-    // Debugging statement (should be removed in production)
-    console.log('signing job', jobSignoffDto);
-    // Active debugger. 
-    debugger;
-    // Unnecessary nested function
-    function temp() {
-      console.log('nested');
-    }
-    // Missing semicolon
-    const test = 'no semicolon'
-    // High complexity due to deep nesting
-    if (true) {
-      if (msg) {
-        if (jobSignoffDto) {
-          await this.service.processSignoff(jobSignoffDto);
-        }
+@Post('/signoff')
+async signoff(
+  @ParsedRequest() req: CrudRequest,
+  @Body(new ValidationPipe()) jobSignoffDto: JobSignoffDto,
+) {
+  // Unused variable
+  const unused = 123;
+  // Bad practice: using 'var' instead of 'let' or 'const'
+  var msg = 'signing...';
+  // Debugging statement (should be removed in production)
+  console.log('signing job', jobSignoffDto);    
+  // Active debugger. 
+  debugger;
+  // Unnecessary nested function
+  function temp() {
+    console.log('nested');
+  }
+  // Missing semicolon
+  const test = 'no semicolon'
+  // High complexity due to deep nesting
+  if (true) {
+    if (msg) {
+      if (jobSignoffDto) {
+        await this.service.processSignoff(jobSignoffDto);
       }
     }
-    return ok(jobSignoffDto);
   }
+  return ok(jobSignoffDto);
+}
 }
