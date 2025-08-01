@@ -31,6 +31,7 @@ import { JobSignoffDto } from '@vatos-pas/common';
 import { User } from '../user/user.entity';
 import { JobSignoffService } from './job-signoff.service';
 import { ok } from 'assert';
+
 @ApiTags(AppResource.JobSignoff)
 @ApiBadRequestResponse()
 @ApiBearerAuth()
@@ -132,6 +133,7 @@ export class JobSignoffController implements CrudController<JobSignoffDto> {
   get base(): CrudController<JobSignoffDto> {
     return this;
   }
+  
 @Post('/signoff')
 async signoff(
   @ParsedRequest() req: CrudRequest,
