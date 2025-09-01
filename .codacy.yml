@@ -4,7 +4,7 @@
 # Exclude files and directories from analysis
 exclude_paths:
   # Test directories - using wildcards
-  - "**/*Tests/**"
+  - "**/*.Tests/**"
   - "**/*Test/**"
   - "**/tests/**"
   - "**/test/**"
