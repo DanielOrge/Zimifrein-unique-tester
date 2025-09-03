@@ -1,0 +1,7 @@
+# .prospector.yml
+
+ignore-patterns:
+  - (^|/)tests(/.*|$)
+dodgy:
+  disable:
+    - B101
