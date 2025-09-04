@@ -1,0 +1,7 @@
+# .prospector.yaml
+
+ignore-patterns:
+  - (^|/)tests(/.*|$)
+dodgy:
+  disable:
+    - B101
