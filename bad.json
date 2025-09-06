@@ -1,0 +1,3 @@
+{
+  "example": "class MyClass extends BaseClass { constructor() { /* missing super() */ } }"
+} 
