@@ -2,5 +2,6 @@
 # Codacy configuration file
 # This file configures Codacy to exclude the "db" folder from static code analysis
 # The db folder contains database migration scripts that don't require code quality analysis
+
 exclude_paths:
   - "db/**"
