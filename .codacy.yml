@@ -1,7 +1,23 @@
 ---
-# Codacy configuration file
-# This file configures Codacy to exclude the "db" folder from static code analysis
-# The db folder contains database migration scripts that don't require code quality analysis
-
 exclude_paths:
-  - "db/**"
+  - "www/js/moment/**"
+  - "lib*/**"
+  - "**/*README.md"
+  - "www/thirdPartyLibrary/**"
+  - "www/js/handsontable-6.2.2/**"
+  - ".phpunit.result.cache"
+  - "backup/**"
+  - ".gitmodules"
+  - "www/js/jscalendar/lang/calendar-sk.js"
+  - "www/ActiveWidgets/source/lib/system/format.js"
+  - "www/js/jquery-jquery-ui-12bea93/ui/jquery.effects.bounce.js"
+  - "www/js/jscalendar/lang/calendar-??_win_.js"
+  - ".claude/instructions.md"
+  - ".rovo/instructions.md"
+  - ".agent.md" # rovo rule file
+  - "AGENTS.md"  # codex rule file
+
+  engines:                                                                                                            │
+  tsqllint:                                                                                                         │
+    exclude_paths:                                                                                                  │
+      - "**/*.sql"
