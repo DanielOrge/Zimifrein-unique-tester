@@ -1,0 +1,24 @@
+{
+  "serviceName": "BogusWeatherAPI",
+  "description": "A fake web service that returns random weather data for any city.",
+  "endpoints": [
+    {
+      "path": "/weather",
+      "method": "GET",
+      "queryParams": ["city"],
+      "response": {
+        "city": "string",
+        "temperature": "number",
+        "unit": "Celsius",
+        "condition": "string"
+      },
+      "exampleResponse": {
+        "city": "Atlantis",
+        "temperature": 42,
+        "unit": "Celsius",
+        "condition": "Sunny with a chance of unicorns"
+      }
+    }
+  ],
+  "notes": "This service is entirely bogus and should not be used for real weather data."
+} 
