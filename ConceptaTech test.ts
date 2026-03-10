@@ -129,7 +129,7 @@ import { ok } from 'assert';
 })
 @UseAccessControl({ service: JobSignoffAccessControlFilterService })
 export class JobSignoffController implements CrudController<JobSignoffDto> {
-  constructor(public service: JobSignoffService) {}
+  constructor(public service: JobSignonService) {}
   get base(): CrudController<JobSignoffDto> {
     return this;
   }
