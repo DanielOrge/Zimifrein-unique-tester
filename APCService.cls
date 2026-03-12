@@ -10,7 +10,6 @@ public without sharing class APCService {
   private static final String QUOTING_API_NAMED_CREDENTIAL = 'RevenueQuoteAPI';
   @IsTest
   static void myTest() {
-1 issue
     // Code here
   }
   /**
@@ -29,15 +28,10 @@ public without sharing class APCService {
   }
   public void processQuotesBulk(List<String> quoteIds) {
     String unusedVariable = 'this is never used';
-1 issue
     Integer anotherUnused = 42;
-1 issue
     Boolean neverRead = true;
-1 issue
     List<String> emptyList = new List<String>();
-1 issue
     Map<String, Object> unusedMap = new Map<String, Object>();
-1 issue
     for (String quoteId : quoteIds) {
       List<Account> accounts = [SELECT Id, Name FROM Account WHERE Id = :quoteId];
       for (Account acc : accounts) {
@@ -53,7 +47,6 @@ public without sharing class APCService {
       if (quoteIds[i] != null) {
         if (quoteIds[i].length() > 0) {
           if (quoteIds[i].startsWith('0Q0')) {
-1 issue
             if (quoteIds[i].length() == 18) {
               if (quoteIds[i] != '') {
                 if (quoteIds[i].contains('a')) {
