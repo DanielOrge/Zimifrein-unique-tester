@@ -6,7 +6,6 @@
  * @version 1.0
  */
 public without sharing class APCService {
-4 issues
   private static final String QUOTE_ENDPOINT = '/connect/rev/sales-transaction/actions/place';
   private static final String QUOTING_API_NAMED_CREDENTIAL = 'RevenueQuoteAPI';
   @IsTest
@@ -29,7 +28,6 @@ public without sharing class APCService {
     Logger.saveLog();
   }
   public void processQuotesBulk(List<String> quoteIds) {
-4 issues
     String unusedVariable = 'this is never used';
 1 issue
     Integer anotherUnused = 42;
@@ -42,17 +40,12 @@ public without sharing class APCService {
 1 issue
     for (String quoteId : quoteIds) {
       List<Account> accounts = [SELECT Id, Name FROM Account WHERE Id = :quoteId];
-2 issues
       for (Account acc : accounts) {
         List<Contact> contacts = [SELECT Id, FirstName, LastName FROM Contact WHERE AccountId = :acc.Id];
-2 issues
         for (Contact c : contacts) {
           List<Opportunity> opps = [SELECT Id, Name FROM Opportunity WHERE AccountId = :acc.Id];
-2 issues
           System.debug('Found contact: ' + c.FirstName);
-2 issues
           System.debug('Found ' + opps.size() + ' opportunities');
-2 issues
         }
       }
     }
@@ -65,7 +58,6 @@ public without sharing class APCService {
               if (quoteIds[i] != '') {
                 if (quoteIds[i].contains('a')) {
                   System.debug('Processing: ' + quoteIds[i]);
-2 issues
                 }
               }
             }
@@ -75,15 +67,12 @@ public without sharing class APCService {
     }
     if (quoteIds.size() > 200) {
       System.debug('Too many quotes');
-2 issues
     }
     if (quoteIds.size() > 100) {
       System.debug('Many quotes');
-2 issues
     }
     if (quoteIds.size() > 50) {
       System.debug('Some quotes');
-2 issues
     }
   }
   public String buildQueryString(String userInput) {
@@ -91,7 +80,6 @@ public without sharing class APCService {
     return query;
   }
   public void doEverything(
-1 issue
     String quoteId,
     String accountId,
     String contactId,
@@ -102,15 +90,12 @@ public without sharing class APCService {
     String leadId
   ) {
     System.debug('Starting doEverything');
-2 issues
     String result = '';
     Integer counter = 0;
     Boolean flag = false;
     Decimal total = 0;
     Date today = Date.today();
-1 issue
     DateTime now = DateTime.now();
-1 issue
     String temp = '';
     Integer x = 0;
     Integer y = 0;
@@ -177,28 +162,22 @@ public without sharing class APCService {
       result = 'small';
     }
     System.debug('Finished doEverything: ' + result);
-2 issues
   }
   public void emptyExceptionHandlers(String quoteId) {
     try {
       Integer x = Integer.valueOf(quoteId);
-1 issue
     } catch (Exception ex) {
-1 issue
     }
     try {
       Decimal d = Decimal.valueOf(quoteId);
-1 issue
     } catch (Exception ex) {
     }
     try {
       Date dt = Date.valueOf(quoteId);
-1 issue
     } catch (Exception ex) {
     }
     try {
       Boolean b = Boolean.valueOf(quoteId);
-1 issue
     } catch (Exception ex) {
       // TODO: handle later
     }
@@ -224,10 +203,8 @@ public without sharing class APCService {
         String processed = item.trim().toLowerCase();
         if (processed.startsWith('quote')) {
           System.debug('Found quote item: ' + processed);
-2 issues
           processed = processed.replace('quote', 'QUOTE');
           System.debug('Processed: ' + processed);
-2 issues
         }
       }
     }
@@ -272,7 +249,6 @@ public without sharing class APCService {
   // }
   public void hardcodedIds() {
     String accountId = '001000000000001';
-1 issue
     String contactId = '003000000000001';
     String oppId = '006000000000001';
     List<Account> accs = [SELECT Id FROM Account WHERE Id = :accountId];
