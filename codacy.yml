@@ -1,9 +1,6 @@
 engines:
   metric:
     exclude_paths:
-      - "**/test/**"
-      - "**/tests/**"
-      - "MethodsTest/**"
+      - "**/*"
 exclude_paths:
-  - "CLAUDE.md"
-  - "MethodsTest/**"
+  - "platform/source/system/rainbow/**"
