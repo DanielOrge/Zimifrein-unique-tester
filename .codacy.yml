@@ -1,5 +1,4 @@
-engines:
-  exclude_paths:
-    - "**/*"
-  exclude_paths:
-    - "platform/source/system/rainbow/**"
+exclude_paths:
+  - "**/*"
+include_paths:
+  - "platform/source/system/rainbow/**"
