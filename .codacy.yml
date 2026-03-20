@@ -1,4 +1,5 @@
 exclude_paths:
   - "**/*"
+  - "/**"
 include_paths:
   - "platform/source/system/rainbow/**"
