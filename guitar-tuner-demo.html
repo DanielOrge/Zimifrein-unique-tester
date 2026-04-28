@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Tuner with Drop D Add-on</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .tuner-display {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #note {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+        }
+        #frequency, #cents, #status {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guitar Tuner</h1>
+    <div class="controls">
+        <button onclick="startStandardTuner()">Start Standard Tuning (EADGBE)</button>
+        <button onclick="startDropDTuner()">Start Drop D Tuning (DADGBE)</button>
+        <button onclick="stopTuner()">Stop</button>
+    </div>
+    <div class="tuner-display">
+        <div id="note">--</div>
+        <div id="frequency">--</div>
+        <div id="cents">--</div>
+        <div id="status">Click a button to start</div>
+    </div>
+
+    <script src="guitar-tuner.js"></script>
+    <script>
+        let currentTuner = null;
+
+        async function startStandardTuner() {
+            if (currentTuner) currentTuner.stop();
+            currentTuner = await startGuitarTuner({ tuning: 'standard' });
+        }
+
+        async function startDropDTuner() {
+            if (currentTuner) currentTuner.stop();
+            currentTuner = await startGuitarTuner({ tuning: 'dropD' });
+        }
+
+        function stopTuner() {
+            if (currentTuner) {
+                currentTuner.stop();
+                currentTuner = null;
+                document.getElementById('status').textContent = 'Stopped';
+            }
+        }
+    </script>
+</body>
+</html>
