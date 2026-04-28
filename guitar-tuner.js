@@ -15,12 +15,22 @@ const GUITAR_STRINGS = [
   { note: "E4", frequency: 329.63 },
 ];
 
+const DROP_D_STRINGS = [
+  { note: "D2", frequency: 73.42 },
+  { note: "A2", frequency: 110.0 },
+  { note: "D3", frequency: 146.83 },
+  { note: "G3", frequency: 196.0 },
+  { note: "B3", frequency: 246.94 },
+  { note: "E4", frequency: 329.63 },
+];
+
 class GuitarTuner {
   constructor(options = {}) {
     this.fftSize = options.fftSize || 2048;
     this.smoothing = options.smoothing || 0.85;
     this.minRms = options.minRms || 0.01;
     this.onUpdate = options.onUpdate || (() => {});
+    this.tuning = options.tuning || 'standard'; // 'standard' or 'dropD'
 
     this.audioContext = null;
     this.analyser = null;
@@ -124,11 +134,16 @@ class GuitarTuner {
     return { frequency: sampleRate / bestOffset };
   }
 
+  setTuning(tuning) {
+    this.tuning = tuning;
+  }
+
   getNearestString(frequency) {
-    let best = GUITAR_STRINGS[0];
+    const strings = this.tuning === 'dropD' ? DROP_D_STRINGS : GUITAR_STRINGS;
+    let best = strings[0];
     let minDiff = Number.POSITIVE_INFINITY;
 
-    for (const string of GUITAR_STRINGS) {
+    for (const string of strings) {
       const diff = Math.abs(string.frequency - frequency);
       if (diff < minDiff) {
         minDiff = diff;
@@ -140,13 +155,14 @@ class GuitarTuner {
   }
 }
 
-async function startGuitarTuner() {
+async function startGuitarTuner(options = {}) {
   const noteEl = document.getElementById("note");
   const freqEl = document.getElementById("frequency");
   const centsEl = document.getElementById("cents");
   const statusEl = document.getElementById("status");
 
   const tuner = new GuitarTuner({
+    tuning: options.tuning || 'standard',
     onUpdate: ({ status, frequency, targetNote, cents }) => {
       if (noteEl) noteEl.textContent = targetNote || "--";
       if (freqEl) freqEl.textContent = frequency ? `${frequency.toFixed(2)} Hz` : "--";
@@ -166,5 +182,6 @@ async function startGuitarTuner() {
 
 if (typeof window !== "undefined") {
   window.startGuitarTuner = startGuitarTuner;
+  window.startDropDTuner = () => startGuitarTuner({ tuning: 'dropD' });
   window.GuitarTuner = GuitarTuner;
 }
