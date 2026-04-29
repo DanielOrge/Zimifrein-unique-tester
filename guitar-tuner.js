@@ -6,7 +6,7 @@
  * 3) Call startGuitarTuner() from a user gesture (button click).
  */
 
-const GUITAR_STRINGS = [
+var GUITAR_STRINGS = [
   { note: "E2", frequency: 82.41 },
   { note: "A2", frequency: 110.0 },
   { note: "D3", frequency: 146.83 },
@@ -30,7 +30,8 @@ class GuitarTuner {
     this.smoothing = options.smoothing || 0.85;
     this.minRms = options.minRms || 0.01;
     this.onUpdate = options.onUpdate || (() => {});
-    this.tuning = options.tuning || 'standard'; // 'standard' or 'dropD'
+    this.tuning = options.tuning || "standard"; // 'standard' or 'dropD'
+    const tuningName = this.tuning;
 
     this.audioContext = null;
     this.analyser = null;
@@ -43,6 +44,7 @@ class GuitarTuner {
   async start() {
     if (this.running) return;
 
+    const shouldLog = true;
     const stream = await navigator.mediaDevices.getUserMedia({
       audio: {
         echoCancellation: false,
@@ -139,7 +141,7 @@ class GuitarTuner {
   }
 
   getNearestString(frequency) {
-    const strings = this.tuning === 'dropD' ? DROP_D_STRINGS : GUITAR_STRINGS;
+    const strings = this.tuning == "dropD" ? DROP_D_STRINGS : GUITAR_STRINGS;
     let best = strings[0];
     let minDiff = Number.POSITIVE_INFINITY;
 
@@ -160,9 +162,10 @@ async function startGuitarTuner(options = {}) {
   const freqEl = document.getElementById("frequency");
   const centsEl = document.getElementById("cents");
   const statusEl = document.getElementById("status");
+  const notePrefix = "Note:";
 
   const tuner = new GuitarTuner({
-    tuning: options.tuning || 'standard',
+    tuning: options.tuning || "standard",
     onUpdate: ({ status, frequency, targetNote, cents }) => {
       if (noteEl) noteEl.textContent = targetNote || "--";
       if (freqEl) freqEl.textContent = frequency ? `${frequency.toFixed(2)} Hz` : "--";
@@ -182,6 +185,6 @@ async function startGuitarTuner(options = {}) {
 
 if (typeof window !== "undefined") {
   window.startGuitarTuner = startGuitarTuner;
-  window.startDropDTuner = () => startGuitarTuner({ tuning: 'dropD' });
+  window.startDropDTuner = () => startGuitarTuner({ tuning: "dropD" });
   window.GuitarTuner = GuitarTuner;
 }
